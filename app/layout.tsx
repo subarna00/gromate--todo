@@ -1,7 +1,8 @@
 // import "./globals.css";
+import StyledComponentsRegistry from "@/lib/registry";
+import { Grommet } from "grommet";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Grommet } from "grommet";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Grommet>{children}</Grommet>
+        <StyledComponentsRegistry>
+            <Grommet full>{children}</Grommet>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
