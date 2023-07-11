@@ -1,4 +1,5 @@
 "use client";
+import Listbox from "@/components/Listbox";
 import { Box, Button, Form, FormField, TextInput } from "grommet";
 import { ChangeEvent, useState } from "react";
 
@@ -23,11 +24,11 @@ export default function Home() {
     },
     {
       id: 123433,
-
       completed: true,
       name: "uprety",
     },
   ]);
+
   const [value, setValue] = useState<FormFields>();
   const addTodo = (todo: FormFields) => {
     if (value?.id) {
@@ -68,6 +69,22 @@ export default function Home() {
       completed: todo?.completed ?? false,
     });
   };
+  const statusTodo = (id: any) => {
+    setLists((li) => {
+      return li.map((l, e) => {
+        if (l.id == id) {
+          return { ...l, completed: !l.completed };
+        }
+        return l;
+      });
+    });
+  };
+
+  const formChange = (nextVal: unknown) => {
+    console.log(nextVal);
+    setValue(nextVal as any);
+  };
+
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-between p-24"
@@ -81,9 +98,10 @@ export default function Home() {
       }}
     >
       <div className="mt-5 border border-red-200 p-3 rounded-xl max-w-xs">
+        [/* Edit / Reset Firn */]
         <Form
           value={value}
-          onChange={(nextValue) => setValue(nextValue)}
+          onChange={formChange}
           onReset={resetFields}
           onSubmit={({ value }) => {
             addTodo(value);
@@ -95,60 +113,23 @@ export default function Home() {
               name="name"
               style={{ border: "1px solid lightgray" }}
             />
+            {/* <TextInput
+              id="text-input2-id"
+              name="name2"
+              style={{ border: "1px solid lightgray" }}
+            /> s*/}
           </FormField>
           <Box direction="row" gap="medium" width="large">
             <Button type="submit" primary label="Submit" />
             <Button type="reset" label="Reset" />
           </Box>
         </Form>
-        <div className="list" style={{ marginTop: "50px" }}>
-          {lists.map((list, index) => {
-            return (
-              <>
-                <div
-                  key={list.id}
-                  className="listContainer"
-                  style={{
-                    border: "1px solid gray",
-                    borderRadius: "10px",
-                    padding: "10px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginTop: "10px",
-                  }}
-                >
-                  <div
-                    className="left"
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                      textDecoration: `${
-                        list.completed ? "line-through" : ""
-                      } `,
-                    }}
-                    onClick={() => {
-                      setLists((li) => {
-                        return li.map((l, e) => {
-                          if (l.id == list.id) {
-                            return { ...l, completed: !l.completed };
-                          }
-                          return l;
-                        });
-                      });
-                    }}
-                  >
-                    {list.name}
-                  </div>
-                  <div className="right">
-                    <button onClick={() => editTodo(list.id)}>Edit</button>
-                    <button onClick={() => deleteTodo(list.id)}>Delete</button>
-                  </div>
-                </div>
-              </>
-            );
-          })}
-        </div>
+        <Listbox
+          lists={lists}
+          deleteTodo={deleteTodo}
+          editTodo={editTodo}
+          statusTodo={statusTodo}
+        />
       </div>
     </main>
   );
