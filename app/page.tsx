@@ -31,6 +31,7 @@ export default function Home() {
 
   const [value, setValue] = useState<FormFields>();
   const addTodo = (todo: FormFields) => {
+    // Update when value
     if (value?.id) {
       const todos = lists.findIndex((l) => l.id == value.id);
       if (todos !== -1) {
@@ -44,10 +45,10 @@ export default function Home() {
         });
       }
     } else {
-      todo.id = Date.now();
+      // todo.id = Date.now();
       console.log(todo);
 
-      setLists((list) => [...list, todo]);
+      setLists((list) => [...list, { ...todo, id: Date.now() }]);
     }
     resetFields();
   };
@@ -98,7 +99,7 @@ export default function Home() {
       }}
     >
       <div className="mt-5 border border-red-200 p-3 rounded-xl max-w-xs">
-        [/* Edit / Reset Firn */]
+        [/* Edit / Resetasdasdasd Firn */]
         <Form
           value={value}
           onChange={formChange}
