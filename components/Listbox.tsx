@@ -11,6 +11,8 @@ const Listbox: FC<ListProps> = ({
 }) => {
   return (
     <Box className="list" margin={{ top: "30px" }}>
+
+      {/* Remove unused variableL index */}
       {lists.map((list, index) => {
         return (
           <Box key={list.id}>

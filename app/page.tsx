@@ -42,6 +42,8 @@ export default function Home() {
   ]);
 
   const [value, setValue] = useState<FormFields>();
+
+  // Naming should be meaningful
   const addTodo = (todo: FormFields) => {
     // Update when value
     if (value?.id) {
@@ -64,9 +66,15 @@ export default function Home() {
     }
     resetFields();
   };
+
+  // Update naming of callback parameters from  l to something meaningful like: listItem OR singleListItem OR anything which can be meaningful.
+  // Remove `i` index which is unused
   const deleteTodo = (id: number) => {
     setLists((list) => list.filter((l, i) => l.id !== id));
   };
+
+
+
   const resetFields = () => {
     setValue({
       id: "",
@@ -74,6 +82,8 @@ export default function Home() {
       completed: false,
     });
   };
+
+   // Update naming of callback parameters from  l to something meaningful like: listItem OR singleListItem OR anything which can be meaningful.
   const editTodo = (id: any) => {
     const todo = lists.find((l) => l.id == id);
     setValue({
@@ -82,6 +92,9 @@ export default function Home() {
       completed: todo?.completed ?? false,
     });
   };
+
+
+  // Update to something meaningful
   const statusTodo = (id: any) => {
     setLists((li) => {
       return li.map((l, e) => {
