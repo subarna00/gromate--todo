@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Listcard from "./Listcard";
 import { ListProps } from "@/types/todo";
+import { Box } from "grommet";
 
 const Listbox: FC<ListProps> = ({
   lists,
@@ -9,20 +10,20 @@ const Listbox: FC<ListProps> = ({
   statusTodo,
 }) => {
   return (
-    <div className="list" style={{ marginTop: "50px" }}>
+    <Box className="list" margin={{ top: "30px" }}>
       {lists.map((list, index) => {
         return (
-          <div key={list.id}>
+          <Box key={list.id}>
             <Listcard
               list={list}
               deleteTodo={deleteTodo}
               editTodo={editTodo}
               statusTodo={statusTodo}
             />
-          </div>
+          </Box>
         );
       })}
-    </div>
+    </Box>
   );
 };
 
