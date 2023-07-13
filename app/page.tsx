@@ -1,6 +1,18 @@
 "use client";
 import Listbox from "@/components/Listbox";
-import { Box, Button, Form, FormField, TextInput } from "grommet";
+import {
+  Box,
+  Button,
+  Form,
+  FormField,
+  Header,
+  TextInput,
+  Menu,
+  Page,
+  PageContent,
+  Paragraph,
+} from "grommet";
+// import { Menu } from "grommet-icons";
 import { ChangeEvent, useState } from "react";
 
 type FormFields = {
@@ -87,51 +99,45 @@ export default function Home() {
   };
 
   return (
-    <main
-      className="flex min-h-screen flex-col items-center justify-between p-24"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        margin: "auto",
-        marginTop: "100px",
-      }}
-    >
-      <div className="mt-5 border border-red-200 p-3 rounded-xl max-w-xs">
-        [/* Edit / Resetasdasdasd Firn */]
-        <Form
-          value={value}
-          onChange={formChange}
-          onReset={resetFields}
-          onSubmit={({ value }) => {
-            addTodo(value);
-          }}
+    <Box>
+      <Header background="brand">
+        {/* <Button icon={<Icons.Home />} hoverIndicator /> */}
+        <Menu label="account" items={[{ label: "logout" }]} kind="wide" />
+      </Header>
+      <Page kind="wide">
+        <PageContent
+          height="95vh"
+          align="center"
+          justify="center"
+          background="light-3"
+          pad={{ horizontal: "50px", vertical: "50px" }}
         >
-          <FormField name="name" htmlFor="text-input-id" label="TODO">
-            <TextInput
-              id="text-input-id"
-              name="name"
-              style={{ border: "1px solid lightgray" }}
+          <Box width="500px" background="white" pad="40px" round="small">
+            <Form
+              value={value}
+              onChange={formChange}
+              onReset={resetFields}
+              onSubmit={({ value }) => {
+                addTodo(value);
+              }}
+            >
+              <FormField name="name" htmlFor="text-input-id" label="TODO">
+                <TextInput id="text-input-id" name="name" />
+              </FormField>
+              <Box direction="row" gap="medium" width="large">
+                <Button type="submit" primary label="Submit" />
+                <Button type="reset" label="Reset" />
+              </Box>
+            </Form>
+            <Listbox
+              lists={lists}
+              deleteTodo={deleteTodo}
+              editTodo={editTodo}
+              statusTodo={statusTodo}
             />
-            {/* <TextInput
-              id="text-input2-id"
-              name="name2"
-              style={{ border: "1px solid lightgray" }}
-            /> s*/}
-          </FormField>
-          <Box direction="row" gap="medium" width="large">
-            <Button type="submit" primary label="Submit" />
-            <Button type="reset" label="Reset" />
           </Box>
-        </Form>
-        <Listbox
-          lists={lists}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
-          statusTodo={statusTodo}
-        />
-      </div>
-    </main>
+        </PageContent>
+      </Page>
+    </Box>
   );
 }

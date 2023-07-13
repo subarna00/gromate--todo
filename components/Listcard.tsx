@@ -1,3 +1,4 @@
+import { Box, Button, Grid, Text } from "grommet";
 import React, { FC } from "react";
 
 type Lists = {
@@ -18,38 +19,44 @@ const Listcard: FC<ListProps> = ({
   statusTodo,
 }) => {
   return (
-    <div>
-      <div
-        className="listContainer"
+    // <Box>
+    <Box
+      pad="10px"
+      gap="small"
+      className="listContainer"
+      direction="row-responsive"
+      justify="between"
+    >
+      {/* list box */}
+      <Box
+        className="left"
         style={{
-          border: "1px solid gray",
-          borderRadius: "10px",
-          padding: "10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: "10px",
+          textDecoration: `${list.completed ? "line-through" : ""} `,
+        }}
+        onClick={() => {
+          statusTodo(list.id);
         }}
       >
-        <div
-          className="left"
-          style={{
-            fontSize: "16px",
-            fontWeight: "bold",
-            textDecoration: `${list.completed ? "line-through" : ""} `,
-          }}
-          onClick={() => {
-            statusTodo(list.id);
-          }}
-        >
+        <Text size="16px" weight="bold">
           {list.name}
-        </div>
-        <div className="right">
-          <button onClick={() => editTodo(list.id)}>Edit</button>
-          <button onClick={() => deleteTodo(list.id)}>Delete</button>
-        </div>
-      </div>
-    </div>
+        </Text>
+      </Box>
+      <Box direction="row" gap="10px" className="right">
+        <Button
+          onClick={() => editTodo(list.id)}
+          label="Edit"
+          primary
+          size="small"
+        />
+        <Button
+          onClick={() => deleteTodo(list.id)}
+          label="Delete"
+          size="small"
+          secondary
+        />
+      </Box>
+    </Box>
+    // </Box>
   );
 };
 
