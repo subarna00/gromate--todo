@@ -12,6 +12,7 @@ import {
   PageContent,
   Paragraph,
 } from "grommet";
+import Link from "next/link";
 // import { Menu } from "grommet-icons";
 import { ChangeEvent, useState } from "react";
 
@@ -103,6 +104,7 @@ export default function Home() {
       <Header background="brand">
         {/* <Button icon={<Icons.Home />} hoverIndicator /> */}
         <Menu label="account" items={[{ label: "logout" }]} kind="wide" />
+        <Link href="/login">Login Page</Link>
       </Header>
       <Page kind="wide">
         <PageContent
